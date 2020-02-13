@@ -47,5 +47,4 @@ class PersonViewSet(viewsets.ModelViewSet):
         # sometimes race condition creates 2
         person = self.get_queryset().filter(persondistinctid__distinct_id=str(request.GET['distinct_id'])).first()
         
-        return response.Response(PersonSerializer(person).data)
-
+        return response.Response(PersonSerializer(person, context={'request': request}).data)
